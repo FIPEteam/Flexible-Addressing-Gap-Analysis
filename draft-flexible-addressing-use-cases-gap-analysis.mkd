@@ -1,0 +1,300 @@
+---
+title: Flexible Addressing - Use Cases and Gap Analysis
+abbrev: Flexible Addressing
+docname: draft-jia-intarea-flexible-addressing-use-cases-gap-analysis-00
+date: 2021-01
+
+ipr: trust200902
+area: Internet
+wg: Internet Area Working Group
+kw: Internet-Draft
+cat: info
+
+coding: us-ascii
+pi:    
+  toc: yes
+  sortrefs:   # defaults to yes
+  symrefs: yes
+
+author:
+      -
+        ins: Y. Jia
+        name: Yihao Jia
+        org: Huawei 
+        #street: Postfach 330440
+        #city: Bremen
+        #code: D-28359
+        #country: Germany
+        #phone: +49-421-218-63921
+        #facsimile: +49-421-218-7000
+        email: jiayihao@huawei.com
+      -
+        ins: G. Li
+        name: Guangpeng Li
+        org: Huawei 
+        #street: Postfach 330440
+        #city: Bremen
+        #code: D-28359
+        #country: Germany
+        #phone: +49-421-218-63921
+        #facsimile: +49-421-218-7000"
+        email: liguangpeng@huawei.com
+      -
+        ins: S. Jiang
+        name: Sheng Jiang
+        org: Huawei 
+        #street: Postfach 330440
+        #city: Bremen
+        #code: D-28359
+        #country: Germany
+        #phone: +49-421-218-63921
+        #facsimile: +49-421-218-7000"
+        email: jiangsheng@huawei.com
+      -
+        ins: L. Iannone
+        name: Luigi Iannone
+        org: Huawei 
+        #street: Postfach 330440
+        #city: Bremen
+        #code: D-28359
+        #country: Germany
+        #phone: +49-421-218-63921
+        #facsimile: +49-421-218-7000"
+        email: luigi.iannone@huawei.com  
+
+#normative:
+#        - rfc2119
+#        - rfc2616
+#        - I-D.ietf-core-coap
+#  I-D.ietf-core-coap:
+
+informative:
+  RFC1180:
+  RFC0791:
+  RFC3972:
+  RFC4301:
+  RFC4919:
+  RFC5517:
+  RFC7401:
+  RFC7476:
+  RFC7348:
+  RFC8799:
+  RFC8200:
+  CONTENT-NET:
+    title: A survey on content-oriented networking for efficient content delivery
+    author:
+      -
+        ins:  J. Choi
+      -
+        ins: J. Han
+      -
+        ins: E. Cho
+    date: 2011-05
+    seriesinfo:
+       IEEE: Communications Magazine 49(3) Pages 121-127
+  NDN:
+    title: Named data networking
+    author:
+    -
+      ins: L. Zhang
+    -
+      ins: A. Afanasyev
+    -
+      ins: J. Burke
+    date: 2014
+    seriesinfo:
+      ACM SIGCOMM: Computer Communication Review 44(3) Pages 66-73
+  LR-WPAN:
+    title: IEEE 802.15.4 - IEEE Standard for Low-Rate Wireless Networks
+    date: 2020-05
+    seriesinfo:
+      IEEE: 802.15 WPAN Task Group 4
+    target: https://standards.ieee.org/standard/802_15_4-2020.html
+  BLE:
+    title: Bluetooth Specification
+    seriesinfo:
+      Bluetooth: SIG Working Groups
+    target: https://www.bluetooth.com/specifications/
+  OCADO:
+    title: Ocado Technology’s robot warehouse a Hive of IoT innovation
+    seriesinfo:
+      Tech: Monitor
+    target: https://techmonitor.ai/tech-leaders/ocado-technology-robot-hive-innovation
+  TERASTREAM:
+    title: Deutsche Telekom tests TeraStream, the network of the future, in Croatia
+    target: https://www.telekom.com/en/media/media-information/archive/deutsche-telekom-tests-terastream-the-network-of-the-future-in-croatia-358444
+  PEARG:
+    title: Privacy Enhancements and Assessments Research Group - PEARG
+    target: https://irtf.org/pearg
+  ETSI-NIN:
+    title: Non-IP Networking - NIN
+    author:
+    -
+      org: ETSI - European Telecommunication Standards Institute
+    target: https://www.etsi.org/technologies/non-ip-networking
+
+entity:
+        SELF: "[RFCXXXX]"
+
+# --- note_IESG_Note
+#
+# bla bla bla
+
+--- abstract
+
+
+Along with the adoption of TCP/IP, an increasing number of emerging scenarios raise challenges due to the ossified address structure.
+To still enable TCP/IP communication through and with networks using other protocols, a flexible address structure would be highly preferred for carrying semantically different addresses.
+This document explores use-cases that may benefit from a flexible address structure, providing as well an analysis of existing gaps. 
+
+
+--- middle
+
+Introduction        {#intro}
+============
+
+<!-- TCP/IP current situation -->
+As the unified protocol of the network layer, Internet Protocol (IP) constantly promotes the prosperity of the entire Internet. 
+With the success of TCP/IP protocol stack, IP is gradually replacing exclusive protocols and becomes the core protocol of the entire communication ecosystem.
+
+<!-- potential of flexible address structure -->
+Along as the popularization of TCP/IP, an increasing number of scenarios would benefit from flexible address structure.
+To fulfill the reachability, IP address is designed to hold the topology semantic and end-point identification semantic {{RFC0791}}.  
+While within limited domains ({{RFC8799}}), a multi-semantic address could be increasingly preferred in implementing complex actions and capabilities for particular scenarios. 
+Under such circumstances, a flexible address structure can unleash more possibilities in serving new scenarios.
+
+This document describes well-recognized scenarios that showcase the benefits of using a flexible address structure, and identifying the requirements of such flexible address structure. 
+
+
+Flexibility: Potential Orientation  {#flexibility}
+==================================
+
+Since a flexible address is expected be adaptive with different scenarios and routing abilities,  
+potentially, orientations of a flexible address structure should include multiple semantics.
+According to the definition of IP structure {{RFC1180}}, cyberspace topology location serves as the only semantic of IP address.
+While, in reality, for emerging use cases, several semantics are expected for reachability, e.g., contents {{CONTENT-NET}} or names {{NDN}}.
+To accommodate growing requirements of futuristic scenarios, address with multi-semantic embedding should compose the core of the flexibility. 
+Along with the dynamic semantic embedding, the length of the address may accordingly be adaptive and flexible.
+
+Use Cases    {#usecases}
+=========
+
+Internet of Things (IoT) {#iot}
+------------------------
+
+In many IoT scenarios, a simple, low-cost communication network is required, and there are limitations for network devices in computational power, memory, and energy availability. 
+In addition to {{LR-WPAN}}, it can be seen that networks using link layer technologies such as Z-Wave, BLE {{BLE}}, DECT_ULE, MS/TP, NFC, and PLC.
+Generally, a group of IoT network devices form a constrained node network at the edge, and IoT terminals connect to these network devices for data transmission. 
+This type of networks and IoT devices in the network require as little computational power as possible, smaller memory requirements, better energy availability to reduce the total cost of ownership of the network.
+Furthermore, in the context of industrial IoT, real-time requirements and scalability make IP technology not suitable as communication technology ({{OCADO}}).
+
+The end-to-end principle requires Internet protocols (e.g., IPv6 {{RFC8200}}) to run on such constrained node networks, allowing  IoT devices using multiple communication technologies to talk on the Internet. 
+Often,  devices located on the edge of constrained networks act as gateway devices, usually performing header compression ({{RFC4919}}). 
+To ensure security and reliability, multiple gateways must be deployed. IoT devices on the network can easily select one of gateways for traffic to pass through. 
+
+
+Satellite Networks  {#satellite}
+------------------
+
+In the future, the space-based Internet will provide global Internet through satellite and ground station. 
+The low cost of satellite launch and the reduction of the cost of network equipment will promote the development of high-density satellite networks. 
+With the convergence of space-based networks and terrestrial networks, users can experience seamless broadband access. 
+Whether on cruise ships, flights, or cars, users will be able to switch data communication services over Wi-Fi, cellular, or satellite networks at any time. 
+The network service provider will plan the transmission path of user traffic based on the network coverage, satellite orbit, route, and link load. The advantage of long-distance transmission but shorter delay of space-based networks is fully used to provide high-quality Internet connections for users in areas not covered by terrestrial networks. 
+<!-- AFAIR the last statement is not correct, satellite networks have several hundreds of milliseconds delay. May be you refer to low-orbit satellite networks but in this case we need a reference -->
+
+Because the satellite constellation will continuously orbit around the hearth, the topology will continuously change over time (but conserving a regular pattern).
+As such, there is a significant difference between the high dynamics of satellite network and the statics of terrestrial network topology. 
+The traditional satellite network cannot meet the preceding requirements through the networking of the dedicated station on the ground.
+<!-- Not sure what is the point of the last sentence -->
+
+
+Dynamic Service and Resource  {#service}
+----------------------------
+
+Network evolution will allow to integrate services and resources from various aspects such as life, production, and learning. 
+The basic data communication mode will be based on digitalized services and resources reorganized and divided into multiple data blocks on the network, where multiple copies of data blocks exist. 
+
+Access to services and resources through URIs has been discussed by many researches, such as NDN {{NDN}} and ICN {{RFC7476}}. 
+In practice, the dynamic service, resource management and access mechanisms integrating ID and address technologies will be more suited to user needs. 
+Service and resource providers will be able to establish online services and make available online resources through unified identifiers without additional planning of identifiers and locations for data and their replicas. 
+Users can access required the nearest services and resources in an on-demand fashion. 
+Furthermore, users can make a request based on the type of service and resource and get a response to the service or a copy of the data.
+
+
+Policy-based Traffic Control  {#policy}
+----------------------------
+
+Policy-based traffic control is constantly far from flexible. 
+To restrict traffic for specific objects, e.g., devices, users, QoS requirements or group of them, the current solution is subnet partition.
+Representative technique for subnet partition includes VLAN {{RFC5517}}, VxLAN {{RFC7348}}, or more evolved solution like Terastream {{TERASTREAM}}.
+However, such mechanism usually involves numerous manual configuration, and even small network changes may result in large manual efforts.
+
+According to the semantic of IP address forwarding, any inconvenience of traffic control stems from the decoupling of address semantic and policy objects. Since address content only present topology location in IPv6, extra out-of-band effort is needed to partition network or recognize traffic from target objects ({{TERASTREAM}}).
+
+For semantic addresses with objects identifier encoded, policy-based traffic control could be almost automatic. 
+For every node forwarding traffic, object identity could be first extracted from both source and destination address once packets arrive. 
+Then by matching objects and policy-based rules, nodes on the path could trigger particular actions that dynamically assigned by administrators. For examples, action permit, action deny, and action permit but low priority.
+Such actions can also be applied for security restriction. 
+
+Robust Trust and Security  {#trust}
+-------------------------
+
+A flexible semantic could significantly help in constructing a trust and secure communication.
+For instance, Cryptographically Generated Addresses (CGA) {{RFC3972}} embeds a truncated public key in the last 57-bit of IPv6 address. 
+Even with a truncated key, authentication and security is greatly enhanced within a IP network via asymmetric cryptography and IPsec {{RFC4301}}.
+Similarly, Host Identity Protocol (HIP) {{RFC7401}} refers such methodology and constructs a enhanced TCP/IP stack. 
+
+Within a flexible address structure, any secure-related key or certificate could be included in address structure without any information loss (i.e., as-is, without any truncation or operation as such). 
+Under such condition, connection provided by such address could be considered as absolute secure (assuming the cryptography involved is secure).
+Even more, anti abuse mechanisms and/or DDoS protection mechanisms like the one under discussion in PEARG ({{PEARG}}) Research Group may leverage in address semantic to be more effective.  
+
+
+Non IP Networks {#nin}
+---------------
+
+The SDN (Software Defined Networks) has, in recent years, highlighted how a majority of Internet traffic is better identified by flows, rather than packets. Based on such observation, initiative has been taken on looking at alternate architectures that are flow-based, instead of packet-based as in the Internet architecture. Rationale is that especially for Audio and Video flows it makes more sense to directly consider them not just as a stream of packets.
+
+The European Telecommunication Standards Institute (ETSI) formed a Industry Specification Group (ISG) focusing on Non-IP Networking (NIN) {{ETSI-NIN}}. 
+The aim is to develop and standardize a set of non-IP-based protocols that is supposed to provide better support for AV use-cases.
+
+
+
+Gap Analysis  {#gaps}
+============
+
+According to the capabilities for scenarios above, this section extracts basic requirements for a flexible address structure.
+Points below details the basal requirements.
+
+- Multi-Semantics: Since semantics are the core of network routing, multi-semantics compose the main capability of the flexible address.
+  
+- Variable Address Length: As for networks with constrained devices, short address becomes necessary for protocol adoption. While on other hand, address space should be adequate enough to accommodate numerous devices.
+
+- IPv6 Interoperability: Without global reachability, a flexible address would be the same as an exclusive protocol. In other words, a flexible address should be valuable only it is inter-operable with IPv6.
+
+
+
+IANA Considerations
+===================
+
+This document does not include any IANA request.
+
+
+Security Considerations
+=======================
+
+<!-- Security issues have not been roundly analysed and confirmed at the moment. -->
+This document introduces no new security threats.
+
+
+Acknowledgements
+================
+
+TBD
+
+--- back
+
+Changelog
+=========
+
+- \[Revision 00\] Initial version based on  draft-jia-scenarios-flexible-address-structure-00.txt. Revised all use-cases and added Gap Analysis.
